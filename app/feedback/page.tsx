@@ -2,21 +2,63 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Navbar from "@/components/navbar"
 import { Send, CheckCircle } from "lucide-react"
+import { db } from "@/lib/firebase"
+import { collection, addDoc, onSnapshot, serverTimestamp } from "firebase/firestore"
+import emailjs from "emailjs-com"
+
+interface FeedbackData {
+  name: string
+  email: string
+  subject: string
+  message: string
+  [key: string]: string
+}
 
 export default function FeedbackPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FeedbackData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   })
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [questions, setQuestions] = useState<FeedbackData[]>([])
+
+  useEffect(() => {
+  const unsub = onSnapshot(collection(db, "questions"), (snapshot) => {
+    const data = snapshot.docs.map((doc) => doc.data() as FeedbackData)
+    setQuestions(data)
+  })
+  return () => unsub()
+}, [])
+
+
+  const handleSubmit =  async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // 1. Lưu vào Firestore
+   await addDoc(collection(db, "questions"), {
+      ...formData,
+      createdAt: serverTimestamp(),
+    })
+
+    // 2. Gửi Email qua EmailJS
+    try {
+     await emailjs.send(
+        "service_emboi81", // service ID
+        "template_7vk57hg", // template ID
+        formData,
+        "LN0JIkWeBEfFqoSZY" // public key
+      )
+      console.log("✅ Email sent")
+    } catch (err) {
+      console.error("❌ Email error:", err)
+    }
+
     // Mock form submission
     console.log("[v0] Feedback submitted:", formData)
     setIsSubmitted(true)
@@ -46,7 +88,7 @@ export default function FeedbackPage() {
               Phản hồi
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
-              Ý kiến của bạn giúp chúng tôi cải thiện nền tảng học tập
+              Câu hỏi của bạn giúp chúng tôi cải thiện nền tảng học tập
             </p>
           </div>
 
@@ -62,7 +104,7 @@ export default function FeedbackPage() {
             <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 border border-border space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium text-foreground">
-                  Họ và tên
+                  Tên nhóm
                 </label>
                 <input
                   type="text"
@@ -72,11 +114,11 @@ export default function FeedbackPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
-                  placeholder="Nguyễn Văn A"
+                  placeholder="Nhóm A"
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2" style={{ display: "none" }}>
                 <label htmlFor="email" className="block text-sm font-medium text-foreground">
                   Email
                 </label>
@@ -86,13 +128,13 @@ export default function FeedbackPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
+                  
                   className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                   placeholder="email@example.com"
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2" style={{ display: "none" }}>
                 <label htmlFor="subject" className="block text-sm font-medium text-foreground">
                   Chủ đề
                 </label>
@@ -101,7 +143,7 @@ export default function FeedbackPage() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
+                  
                   className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="">Chọn chủ đề</option>
@@ -114,7 +156,7 @@ export default function FeedbackPage() {
 
               <div className="space-y-2">
                 <label htmlFor="message" className="block text-sm font-medium text-foreground">
-                  Nội dung phản hồi
+                  Câu hỏi
                 </label>
                 <textarea
                   id="message"
@@ -124,7 +166,7 @@ export default function FeedbackPage() {
                   required
                   rows={6}
                   className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring resize-none"
-                  placeholder="Chia sẻ ý kiến của bạn..."
+                  placeholder="Câu hỏi cho đề tài của bạn..."
                 />
               </div>
 
@@ -133,10 +175,23 @@ export default function FeedbackPage() {
                 className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition-opacity font-medium flex items-center justify-center gap-2"
               >
                 <Send className="w-5 h-5" />
-                Gửi phản hồi
+                Gửi câu hỏi
               </button>
             </form>
           )}
+
+          {/* Hiển thị realtime câu hỏi */}
+          <div className="mt-10">
+            <h2 className="text-xl font-semibold">Câu hỏi đã gửi:</h2>
+            <ul className="list-disc pl-6 mt-4 space-y-2">
+              {questions.map((q, i) => (
+                <li key={i}>
+                  <strong>{q.name}</strong>: {q.message}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </section>
     </main>
