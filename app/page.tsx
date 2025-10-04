@@ -15,11 +15,11 @@ export default function Home() {
           </div>
 
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight text-balance">
-            Học Viện Bác Hồ
+            Tư Tưởng Sáng của Bác
           </h1>
 
           <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty">
-            Nền tảng học Tư tưởng Hồ Chí Minh với AI assistant và nội dung đa ngôn ngữ
+            Nền tảng học tập tư tưởng Hồ Chí Minh với AI assistant, video và nội dung đa dạng về văn hóa, đạo đức và con người
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 pt-4">
@@ -50,23 +50,23 @@ export default function Home() {
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto">
               <BookOpen className="w-6 h-6 text-primary-foreground" />
             </div>
-            <div className="font-serif text-3xl font-bold text-foreground">20+</div>
-            <div className="text-sm text-muted-foreground">BÀI VIẾT TRÍCH HỌC</div>
+            <div className="font-serif text-3xl font-bold text-foreground">6</div>
+            <div className="text-sm text-muted-foreground">CHƯƠNG HỌC</div>
           </div>
 
           <div className="text-center space-y-2">
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto">
               <Video className="w-6 h-6 text-primary-foreground" />
             </div>
-            <div className="font-serif text-3xl font-bold text-foreground">2</div>
-            <div className="text-sm text-muted-foreground">NGÔN NGỮ HỖ TRỢ</div>
+            <div className="font-serif text-3xl font-bold text-foreground">6</div>
+            <div className="text-sm text-muted-foreground">VIDEO HỌC TẬP</div>
           </div>
 
           <div className="text-center space-y-2">
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto">
               <Brain className="w-6 h-6 text-primary-foreground" />
             </div>
-            <div className="font-serif text-3xl font-bold text-foreground">1</div>
+            <div className="font-serif text-3xl font-bold text-foreground">AI</div>
             <div className="text-sm text-muted-foreground">ASSISTANT</div>
           </div>
         </div>
@@ -76,29 +76,29 @@ export default function Home() {
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mb-8 text-center">
-            Về Chủ tịch Hồ Chí Minh
+            Tư Tưởng Sáng của Bác Hồ
           </h2>
 
           <div className="bg-card rounded-2xl p-8 shadow-lg border border-border space-y-6">
             <p className="text-muted-foreground leading-relaxed">
-              Hồ Chí Minh (1890-1969) là lãnh tụ vĩ đại của dân tộc Việt Nam, người sáng lập và rèn luyện Đảng Cộng sản
-              Việt Nam, người sáng lập nước Việt Nam Dân chủ Cộng hòa.
+              Chủ tịch Hồ Chí Minh (1890-1969) là lãnh tụ vĩ đại của dân tộc Việt Nam, người sáng lập và rèn luyện Đảng Cộng sản
+              Việt Nam. Tư tưởng của Người là ngọn đuốc soi đường cho cách mạng Việt Nam.
             </p>
 
             <p className="text-muted-foreground leading-relaxed">
-              Tư tưởng Hồ Chí Minh là một hệ thống quan điểm toàn diện và sâu sắc về những vấn đề cơ bản của cách mạng
-              Việt Nam, là kết quả của sự vận dụng sáng tạo chủ nghĩa Mác - Lênin vào điều kiện cụ thể của Việt Nam.
+              "Tư Tưởng Sáng của Bác" là nền tảng học tập tư tưởng Hồ Chí Minh, giúp bạn hiểu sâu sắc về quan điểm của Người về văn hóa, 
+              đạo đức và con người - những giá trị cốt lõi làm nên sức mạnh dân tộc.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4 pt-4">
               <div className="bg-secondary rounded-xl p-6">
-                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">Độc lập dân tộc</h3>
-                <p className="text-sm text-muted-foreground">Gắn liền độc lập dân tộc với chủ nghĩa xã hội</p>
+                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">Văn hóa dân tộc</h3>
+                <p className="text-sm text-muted-foreground">Xây dựng nền văn hóa mới dân tộc, khoa học, đại chúng</p>
               </div>
 
               <div className="bg-secondary rounded-xl p-6">
-                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">Văn hóa - Đạo đức</h3>
-                <p className="text-sm text-muted-foreground">Xây dựng con người mới và nền văn hóa tiên tiến</p>
+                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">Đạo đức cách mạng</h3>
+                <p className="text-sm text-muted-foreground">Cần, kiệm, liêm, chính, chí công vô tư</p>
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function Home() {
       {/* Chapters Preview */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-foreground mb-12 text-center">
-          Khám phá các chương Tư tưởng Hồ Chí Minh
+          Khám phá Tư Tưởng Sáng của Bác
         </h2>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
