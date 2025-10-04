@@ -16,8 +16,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata = {
-  title: "Tư tưởng Hồ Chí Minh về Văn hóa, Đạo đức, Con người",
-  description: "Chương 6: Tìm hiểu tư tưởng Hồ Chí Minh về văn hóa, đạo đức và con người",
+  title: "Tư Tưởng Sáng của Bác - Học tập tư tưởng Hồ Chí Minh",
+  description: "Nền tảng học tập tư tưởng Hồ Chí Minh với AI assistant, video và nội dung đa dạng về văn hóa, đạo đức và con người",
     generator: 'v0.app'
 }
 
