@@ -12,24 +12,53 @@ export default function Chatbox() {
     },
   ])
   const [input, setInput] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const handleSend = () => {
-    if (!input.trim()) return
+  const handleSend = async () => {
+    if (!input.trim() || loading) return
 
     const userMessage = input.trim()
     setMessages((prev) => [...prev, { role: "user", content: userMessage }])
     setInput("")
+    setLoading(true)
 
     // Mock AI response
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     {
+    //       role: "assistant",
+    //       content: `Cảm ơn bạn đã hỏi về "${userMessage}". Đây là một câu hỏi hay về tư tưởng Hồ Chí Minh. Tôi sẽ giúp bạn tìm hiểu thêm về chủ đề này.`,
+    //     },
+    //   ])
+    // }, 1000)
+
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: userMessage }),
+      })
+
+      const data = await res.json()
+      const reply =
+        data.answer ||
+        data.message ||
+        "Xin lỗi, tôi không thể tìm thấy thông tin phù hợp cho câu hỏi này."
+
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }])
+    } catch (err) {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `Cảm ơn bạn đã hỏi về "${userMessage}". Đây là một câu hỏi hay về tư tưởng Hồ Chí Minh. Tôi sẽ giúp bạn tìm hiểu thêm về chủ đề này.`,
+          content: "Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại sau.",
         },
       ])
-    }, 1000)
+    } finally {
+      setLoading(false)
+    }
+
   }
 
   return (
@@ -74,10 +103,13 @@ export default function Chatbox() {
                       : "bg-secondary text-secondary-foreground"
                   }`}
                 >
-                  <p className="text-sm leading-relaxed">{message.content}</p>
+                   {/* <p className="text-sm leading-relaxed">{message.content}</p> */}
+                   <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
+
                 </div>
               </div>
             ))}
+
           </div>
 
           {/* Input */}
@@ -90,9 +122,11 @@ export default function Chatbox() {
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Nhập câu hỏi của bạn..."
                 className="flex-1 px-4 py-2 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring text-sm"
+                disabled={loading}
               />
               <button
                 onClick={handleSend}
+                disabled={loading}
                 className="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition-opacity"
                 aria-label="Send message"
               >
