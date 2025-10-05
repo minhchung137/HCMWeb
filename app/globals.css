@@ -76,8 +76,9 @@
 }
 
 @theme inline {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
+  /* Use Next.js font variables to ensure Vietnamese glyph support */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

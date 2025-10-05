@@ -121,22 +121,41 @@ export default function QuizPage() {
   const [showResult, setShowResult] = useState(false)
   const [score, setScore] = useState(0)
   const [isGenerating, setIsGenerating] = useState(false)
+  const [showAnswer, setShowAnswer] = useState(false)
+  const [userAnswers, setUserAnswers] = useState<{ questionId: number; selected: number | null; correctIndex: number; isCorrect: boolean }[]>([])
 
   const handleAnswer = (answerIndex: number) => {
+    if (showAnswer) return
     setSelectedAnswer(answerIndex)
   }
 
   const handleNext = () => {
-    if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-      setScore(score + 1)
-    }
+    const correctIndex = questions[currentQuestion].correctAnswer
+    const isCorrect = selectedAnswer !== null && selectedAnswer === correctIndex
+
+    setUserAnswers(prev => [
+      ...prev,
+      {
+        questionId: questions[currentQuestion].id,
+        selected: selectedAnswer,
+        correctIndex,
+        isCorrect,
+      },
+    ])
+
+    if (isCorrect) setScore(score + 1)
 
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
       setSelectedAnswer(null)
+      setShowAnswer(false)
     } else {
       setShowResult(true)
     }
+  }
+
+  const handleShowAnswer = () => {
+    setShowAnswer(true)
   }
 
   const handleRestart = () => {
@@ -144,6 +163,8 @@ export default function QuizPage() {
     setSelectedAnswer(null)
     setShowResult(false)
     setScore(0)
+    setShowAnswer(false)
+    setUserAnswers([])
   }
 
   const handleGenerateQuestions = async () => {
@@ -202,7 +223,7 @@ export default function QuizPage() {
         <Navbar />
 
         <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-2xl mx-auto text-center space-y-8">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="w-24 h-24 bg-accent/10 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle className="w-12 h-12 text-accent" />
             </div>
@@ -233,6 +254,44 @@ export default function QuizPage() {
                 <Brain className="w-5 h-5" />
                 {isGenerating ? "Đang tạo..." : "Tạo câu hỏi mới (AI)"}
               </button>
+            </div>
+
+            {/* Review all questions */}
+            <div className="text-left bg-card rounded-2xl p-8 border border-border space-y-6">
+              <h2 className="font-serif text-2xl font-semibold text-foreground">Xem lại toàn bộ câu hỏi</h2>
+              <div className="space-y-6">
+                {questions.map((q, idx) => {
+                  const ua = userAnswers[idx]
+                  const selected = ua?.selected
+                  return (
+                    <div key={q.id} className="p-4 rounded-xl border border-border">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium text-foreground">Câu {idx + 1}. {q.question}</h3>
+                        <span className={`text-sm px-2 py-1 rounded ${ua?.isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                          {ua?.isCorrect ? 'Đúng' : 'Sai'}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        {q.options.map((opt, i) => {
+                          const isCorrect = i === q.correctAnswer
+                          const isSelected = selected === i
+                          const base = 'w-full text-left p-3 rounded-lg border'
+                          const cls = isCorrect
+                            ? 'border-emerald-300 bg-emerald-50'
+                            : isSelected
+                              ? 'border-rose-300 bg-rose-50'
+                              : 'border-border'
+                          return (
+                            <div key={i} className={`${base} ${cls}`}>
+                              <span className="text-sm text-foreground">{opt}</span>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -277,31 +336,58 @@ export default function QuizPage() {
                 <button
                   key={index}
                   onClick={() => handleAnswer(index)}
-                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${selectedAnswer === index
-                      ? "border-accent bg-accent/10"
-                      : "border-border hover:border-accent/50 hover:bg-secondary"
-                    }`}
+                  disabled={showAnswer}
+                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                    showAnswer
+                      ? index === question.correctAnswer
+                        ? 'border-emerald-400 bg-emerald-50'
+                        : selectedAnswer === index
+                          ? 'border-rose-400 bg-rose-50'
+                          : 'border-border opacity-80'
+                      : selectedAnswer === index
+                        ? 'border-accent bg-accent/10'
+                        : 'border-border hover:border-accent/50 hover:bg-secondary'
+                  }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswer === index ? "border-accent bg-accent" : "border-border"
-                        }`}
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        showAnswer
+                          ? index === question.correctAnswer
+                            ? 'border-emerald-500 bg-emerald-500'
+                            : selectedAnswer === index
+                              ? 'border-rose-500 bg-rose-500'
+                              : 'border-border'
+                          : selectedAnswer === index
+                            ? 'border-accent bg-accent'
+                            : 'border-border'
+                      }`}
                     >
-                      {selectedAnswer === index && <div className="w-3 h-3 bg-white rounded-full" />}
+                      {(selectedAnswer === index || (showAnswer && index === question.correctAnswer)) && (
+                        <div className="w-3 h-3 bg-white rounded-full" />
+                      )}
                     </div>
                     <span className="text-foreground">{option}</span>
                   </div>
                 </button>
               ))}
             </div>
-
-            <button
-              onClick={handleNext}
-              disabled={selectedAnswer === null}
-              className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {currentQuestion < questions.length - 1 ? "Câu tiếp theo" : "Hoàn thành"}
-            </button>
+            <div className="grid sm:grid-cols-2 gap-3">
+              <button
+                onClick={handleShowAnswer}
+                disabled={selectedAnswer === null || showAnswer}
+                className="w-full px-6 py-3 bg-secondary text-foreground rounded-lg hover:bg-secondary/80 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Hiển thị đáp án
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={selectedAnswer === null}
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {currentQuestion < questions.length - 1 ? "Câu tiếp theo" : "Hoàn thành"}
+              </button>
+            </div>
           </div>
         </div>
       </section>
