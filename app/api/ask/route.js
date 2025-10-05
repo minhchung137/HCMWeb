@@ -89,8 +89,9 @@ export async function POST(req) {
       return new Response(JSON.stringify({ answer: null, reason: "no_match", message: "Không tìm thấy đoạn có liên quan trong tài liệu.", evidence: [] }), { status: 200 });
     }
 
-    // If you have an OpenAI API key (set as env OPENAI_API_KEY), call responses API to synthesize final answer
-    const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    // Take API KEY
+    // const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const OPENAI_KEY = "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";
     if (OPENAI_KEY) {
       // build prompt: include top chunks as context
       const joined = topK.map((t,i)=>`--- đoạn ${i+1} ---\n${t.text}`).join("\n\n");
