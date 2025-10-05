@@ -35,6 +35,84 @@ const initialQuestions: Question[] = [
     options: ["Chỉ cần có đạo đức tốt", "Chỉ cần có tri thức cao", "Đạo đức, tri thức và năng lực", "Chỉ cần yêu nước"],
     correctAnswer: 2,
   },
+  {
+    id: 4,
+    question: "Hồ Chí Minh khẳng định đạo đức là gì của người cách mạng?",
+    options: ["Gốc rễ, nền tảng hình thành nhân cách", "Một phẩm chất quan trọng bổ sung cho tài năng", "Công cụ lãnh đạo lâu dài để điều hành xã hội", "Tiêu chí đánh giá cuối cùng mà quần chúng dùng để nhìn nhận cán bộ"],
+    correctAnswer: 0,
+  },
+  {
+    id: 5,
+    question: "Câu nói: “Cũng như sông thì có nguồn, cây thì có gốc…” dùng để nhấn mạnh điều gì?",
+    options: ["Đạo đức là cội nguồn, nền tảng của cách mạng", "Đạo đức là một phẩm chất tự nhiên bẩm sinh của con người", "Đạo đức chỉ là điều kiện cần, chưa đủ cho lãnh đạo", "Đạo đức và tài năng là hai yếu tố độc lập, không liên hệ"],
+    correctAnswer: 0,
+  },
+  {
+    id: 6,
+    question: "“Có tài mà không có đức là người vô dụng” nhấn mạnh mối quan hệ nào?",
+    options: ["Đức giữ vai trò định hướng, tài là phương tiện", "Tài năng quan trọng hơn đạo đức", "Đức và tài có thể tách rời nhau trong thực tế", "Tài năng có thể thay thế vai trò của đạo đức"],
+    correctAnswer: 0,
+  },
+  {
+    id: 7,
+    question: "Nội dung “cần, kiệm, liêm, chính, chí công vô tư” phản ánh điều gì?",
+    options: ["Cốt lõi của đạo đức cách mạng", "Quy tắc ứng xử chủ yếu trong gia đình truyền thống", "Giáo lý hành chính/quan liêu trong hoạt động nhà nước", "Chuẩn mực sống cá nhân tách rời nhiệm vụ chính trị"],
+    correctAnswer: 0,
+  },
+  {
+    id: 8,
+    question: "Nguyên tắc quan trọng nhất trong xây dựng đạo đức cách mạng là gì?",
+    options: ["Nói đi đôi với làm, nêu gương", "Học tập lý luận chính trị nghiêm túc", "Chấp hành mệnh lệnh cấp trên tuyệt đối", "Kết hợp giữa học và hành (học rồi mới làm)"],
+    correctAnswer: 0,
+  },
+  {
+    id: 9,
+    question: "Vì sao Hồ Chí Minh coi tu dưỡng đạo đức phải diễn ra suốt đời?",
+    options: ["Vì con người dễ bị cám dỗ, đạo đức không ổn định nếu không rèn luyện", "Vì đạo đức chỉ cần thiết trong tuổi trẻ và khi bắt đầu công tác", "Vì rèn luyện đạo đức chỉ cần một giai đoạn cơ bản là đủ", "Vì đạo đức là vốn có, không cần học tập nhiều"],
+    correctAnswer: 0,
+  },
+  {
+    id: 10,
+    question: "Tại sao Hồ Chí Minh coi “cần, kiệm, liêm, chính” là nền tảng của nhân cách cán bộ?",
+    options: ["Vì nó định hình tác phong làm việc trong sạch, hiệu quả, đúng đắn", "Vì nó giúp cán bộ tích lũy tài sản cá nhân ổn định", "Vì nó có thể thay thế mọi phẩm chất đạo đức khác", "Vì nó chỉ cần áp dụng ở cấp lãnh đạo cao là đủ"],
+    correctAnswer: 0,
+  },
+  {
+    id: 11,
+    question: "Nguyên tắc “nói đi đôi với làm” có tác dụng gì?",
+    options: ["Tạo sự tin tưởng, làm gương cho quần chúng", "Giúp cán bộ nói ít, làm nhiều hơn mà không cần giải thích", "Giúp cán bộ né tránh trách nhiệm khi sai sót", "Chỉ là công cụ tuyên truyền để tập hợp nhân dân"],
+    correctAnswer: 0,
+  },
+  {
+    id: 12,
+    question: "Mối quan hệ giữa “đức” và “tài” theo Hồ Chí Minh là gì?",
+    options: ["Đức định hướng cho tài, tài phát huy trên nền tảng đức", "Tài có thể thay thế đức trong một số tình huống cần thiết", "Đức chỉ cần khi không có tài, còn nếu có tài thì không cần đức", "Tài và đức là hai yếu tố hoàn toàn độc lập với nhau"],
+    correctAnswer: 0,
+  },
+  {
+    id: 13,
+    question: "Đạo đức cách mạng giúp cán bộ phát huy tài năng thế nào?",
+    options: ["Định hướng sử dụng tài năng vì lợi ích chung", "Giúp cán bộ che giấu tài năng để giữ bình an", "Giúp cán bộ dùng tài năng để thu lợi cá nhân hiệu quả hơn", "Khi có đạo đức, cán bộ sẽ tự kiêu và không cần trau dồi thêm"],
+    correctAnswer: 0,
+  },
+  {
+    id: 14,
+    question: "Nếu cán bộ có tài nhưng thiếu đạo đức, hậu quả dễ dẫn đến là gì?",
+    options: ["Lạm quyền, tham nhũng, làm mất niềm tin của nhân dân", "Được quần chúng tin tưởng hơn vì kết quả công việc", "Hoàn thành nhiệm vụ tốt hơn do tận dụng mọi phương tiện", "Trở thành hình mẫu cán bộ ưu tú được nể phục rộng rãi"],
+    correctAnswer: 0,
+  },
+  {
+    id: 15,
+    question: "Vì sao đạo đức cách mạng được coi là động lực phát huy tài năng?",
+    options: ["Vì giúp tài năng phục vụ đúng mục tiêu, tránh lệch lạc", "Vì đạo đức có thể thay thế hoàn toàn năng lực chuyên môn", "Vì tài năng không cần rèn luyện nếu có đạo đức", "Vì chỉ người có đạo đức mới có năng lực thực sự"],
+    correctAnswer: 0,
+  },
+  {
+    id: 16,
+    question: "Để giữ uy tín trước nhân dân, cán bộ cần làm gì?",
+    options: ["Sống trong sạch, nêu gương, gắn bó với nhân dân", "Chỉ chú tâm hoàn thành nhiệm vụ chuyên môn, không cần quan hệ dân", "Tập trung vun vén lợi ích cá nhân trước nhiệm vụ công", "Tận dụng quyền lực để mở rộng tầm ảnh hưởng riêng"],
+    correctAnswer: 0,
+  }
 ]
 
 export default function QuizPage() {
@@ -200,17 +278,15 @@ export default function QuizPage() {
                 <button
                   key={index}
                   onClick={() => handleAnswer(index)}
-                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                    selectedAnswer === index
+                  className={`w-full text-left p-4 rounded-xl border-2 transition-all ${selectedAnswer === index
                       ? "border-accent bg-accent/10"
                       : "border-border hover:border-accent/50 hover:bg-secondary"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                        selectedAnswer === index ? "border-accent bg-accent" : "border-border"
-                      }`}
+                      className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${selectedAnswer === index ? "border-accent bg-accent" : "border-border"
+                        }`}
                     >
                       {selectedAnswer === index && <div className="w-3 h-3 bg-white rounded-full" />}
                     </div>

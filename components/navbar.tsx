@@ -10,7 +10,7 @@ const navLinks = [
   { href: "/chapter", label: "Chapter" },
   { href: "/video", label: "Video" },
   { href: "/quiz", label: "Quiz" },
-  { href: "/feedback", label: "Phản hồi" },
+  { href: "/feedback", label: "Q&A" },
 ]
 
 export default function Navbar() {
