@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/chapter", label: "Chapter" },
   { href: "/video", label: "Video" },
   { href: "/quiz", label: "Quiz" },
+  { href: "/music", label: "Âm nhạc" },
   { href: "/chatbox", label: "Chat Box" },
   { href: "/feedback", label: "Q&A" },
 ]
