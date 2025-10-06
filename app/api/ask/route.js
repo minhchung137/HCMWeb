@@ -90,8 +90,8 @@ export async function POST(req) {
     }
 
     // Take API KEY
-    // const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-    const OPENAI_KEY = "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";
+   const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    // const OPENAI_KEY = "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";
     if (OPENAI_KEY) {
       // build prompt: include top chunks as context
       const joined = topK.map((t,i)=>`--- đoạn ${i+1} ---\n${t.text}`).join("\n\n");
