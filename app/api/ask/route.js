@@ -106,8 +106,8 @@ Câu hỏi: ${question}
 Hãy trả lời đầy đủ, chi tiết, có trích dẫn nếu có.
       `;
 
-      // call OpenAI Responses API
-      const resp = await fetch("https://api.openai.com/v1/responses", {
+      // call OpenAI Chat Completions API
+      const resp = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,17 +115,36 @@ Hãy trả lời đầy đủ, chi tiết, có trích dẫn nếu có.
         },
         body: JSON.stringify({
           model: "gpt-4o-mini",
-          input: prompt,
-          // optionally: max tokens, temperature
+          messages: [
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
           temperature: 0.2,
-          max_output_tokens: 800
+          max_tokens: 800
         })
       });
 
       const json = await resp.json();
+      
+      // Check if API call was successful
+      if (!resp.ok) {
+        console.error('OpenAI API error:', json);
+        return new Response(JSON.stringify({ 
+          error: `Lỗi API OpenAI: ${json.error?.message || 'Không thể kết nối tới OpenAI'}` 
+        }), { status: 500 });
+      }
+      
       // try to extract text
-      const answerText = json?.output?.[0]?.content?.[0]?.text ?? null;
-      return new Response(JSON.stringify({ answer: answerText, raw: json, evidence: topK.map(t=>t.text) }), { status: 200 });
+      const answerText = json?.choices?.[0]?.message?.content ?? null;
+      if (!answerText) {
+        return new Response(JSON.stringify({ 
+          error: "OpenAI không trả về câu trả lời hợp lệ" 
+        }), { status: 500 });
+      }
+      
+      return new Response(JSON.stringify({ answer: answerText, evidence: topK.map(t=>t.text) }), { status: 200 });
     } else {
       // No OPENAI_KEY: return the top chunks as evidence (retrieval-only)
       return new Response(JSON.stringify({ answer: null, reason: "no_api_key", message: "Không có API key. Đây là các đoạn tìm được:", evidence: topK.map(t=>t.text) }), { status: 200 });

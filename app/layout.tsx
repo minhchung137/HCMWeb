@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="vi" className={`${inter.variable} ${playfair.variable} antialiased`}>
       <body>
         {children}
-        <Chatbox />
+        {/* <Chatbox /> */}
       </body>
     </html>
   )

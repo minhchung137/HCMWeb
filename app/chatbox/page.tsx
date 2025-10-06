@@ -21,9 +21,15 @@ export default function QnAPage() {
       });
 
       const data = await res.json();
-      if (data.answer) setAnswer(data.answer);
-      else if (data.message) setAnswer(data.message);
-      else setError("Không nhận được phản hồi hợp lệ.");
+      if (data.answer) {
+        setAnswer(data.answer);
+      } else if (data.message) {
+        setAnswer(data.message);
+      } else if (data.error) {
+        setError(data.error);
+      } else {
+        setError("Không nhận được phản hồi hợp lệ.");
+      }
     } catch (err) {
       setError("Lỗi khi gửi yêu cầu tới server.");
     } finally {

@@ -311,7 +311,7 @@ export default function QuizPage() {
               >
                 Làm lại
               </button>
-              <button
+              {/* <button
                 onClick={handleGenerateQuestions}
                 disabled={isGenerating}
                 style={{display: "none"}}
@@ -319,7 +319,7 @@ export default function QuizPage() {
               >
                 <Brain className="w-5 h-5" />
                 {isGenerating ? "Đang tạo..." : "Tạo câu hỏi mới (AI)"}
-              </button>
+              </button> */}
             </div>
 
             {/* Review all questions */}
@@ -383,7 +383,7 @@ export default function QuizPage() {
               <div className="text-sm text-muted-foreground">
                 Câu {currentQuestion + 1} / {questions.length}
               </div>
-              <button
+              {/* <button
                 onClick={handleGenerateQuestions}
                 disabled={isGenerating}
                 style={{display:"none"}}
@@ -391,7 +391,7 @@ export default function QuizPage() {
               >
                 <RefreshCw className={`w-4 h-4 ${isGenerating ? "animate-spin" : ""}`} />
                 {isGenerating ? "Đang tạo..." : "Tạo câu hỏi mới"}
-              </button>
+              </button> */}
             </div>
           </div>
 
