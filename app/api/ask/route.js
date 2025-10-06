@@ -91,7 +91,7 @@ export async function POST(req) {
 
     // Take API KEY
     // const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-    const OPENAI_KEY = "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";
+    const OPENAI_KEY = "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";
     if (OPENAI_KEY) {
       // build prompt: include top chunks as context
       const joined = topK.map((t,i)=>`--- đoạn ${i+1} ---\n${t.text}`).join("\n\n");
